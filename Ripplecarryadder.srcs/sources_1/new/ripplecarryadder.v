@@ -1,49 +1,21 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 08.01.2024 14:01:09
-// Design Name: 
-// Module Name: ripplecarryadder
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+module full_adder(
+    input a,b,cin,
+    output sum,carry);
 
-// Verilog project: Verilog code for 4-bit ripple-carry adder
-module rippe_adder(S, Cout, X, Y,Cin);
- input [3:0] X, Y;// Two 4-bit inputs
- input Cin;
- output [3:0] S;
- output Cout;
- wire w1, w2, w3;
- // Write the logic for instantiating 4 1-bit full adders in Verilog
- 
- 
- 
- 
- 
+assign sum = a ^ b ^ cin;
+assign carry = (a & b)|(b & cin)|(cin & a);
+                
 endmodule
+module rca(
+    input [3:0]a,b,
+    input cin,
+    output [3:0]sum,
+    output c4);
 
+wire c1,c2,c3;
 
-// Verilog code for 1-bit full adder
-module fulladder(S, Co, X, Y, Ci);
-  input X, Y, Ci;
-  output S, Co;
-  wire w1,w2,w3;
-  //Structural code for one bit full adder
-  xor G1(w1, X, Y);
-  xor G2(S, w1, Ci);
-  and G3(w2, w1, Ci);
-  and G4(w3, X, Y);
-  or G5(Co, w2, w3);
+full_adder fa0(a[0],b[0],cin,sum[0],c1);
+full_adder fa1(a[1],b[1],c1,sum[1],c2);
+full_adder fa2(a[2],b[2],c2,sum[2],c3);
+full_adder fa3(a[3],b[3],c3,sum[3],c4);
 endmodule
